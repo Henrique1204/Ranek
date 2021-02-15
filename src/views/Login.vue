@@ -15,8 +15,6 @@
         <p class="perdeu"><a href="/" target="_blank">Perdeu a senha? Clique aqui.</a></p>
 
         <LoginCriar />
-
-        <pre>{{$store.state.usuario}}</pre>
   </section>
 </template>
 
