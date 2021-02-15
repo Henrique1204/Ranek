@@ -17,7 +17,8 @@ const initialState = {
     bairro: '',
     cidade: '',
     estado: ''
-  }
+  },
+  usuario_produtos: null
 };
 
 export default new Vuex.Store({
@@ -29,6 +30,13 @@ export default new Vuex.Store({
     },
     UPDATE_USUARIO(state, payload) {
       state.usuario = { ...state.usuario, ...payload };
+    },
+    UPDATE_USUARIO_PRODUTOS(state, payload) {
+      if (state.usuario_produtos) {
+        state.usuario_produtos.unshift(payload);
+      } else {
+        state.usuario_produtos = payload;
+      }
     }
   },
   actions: {
@@ -44,6 +52,10 @@ export default new Vuex.Store({
     deslogarUsuario(context) {
       context.commit('UPDATE_USUARIO', initialState.usuario);
       context.commit('UPDATE_LOGIN', false);
+    },
+    getUsuarioProdutos(context) {
+      api.get(`/produto?usuario_id=${context.state.usuario.id}`)
+      .then((res) => context.commit('UPDATE_USUARIO_PRODUTOS', res.data));
     }
   },
   modules: {
