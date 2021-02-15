@@ -15,6 +15,8 @@
         <p class="perdeu"><a href="/" target="_blank">Perdeu a senha? Clique aqui.</a></p>
 
         <LoginCriar />
+
+        <pre>{{$store.state.usuario}}</pre>
   </section>
 </template>
 
@@ -27,12 +29,12 @@
             login: {
                 email: '',
                 senha: '',
-
             }
         }),
         methods: {
             logar() {
-
+                this.$store.dispatch('getUsuario', this.login.email);
+                this.$router.push({ name: 'usuario' });
             }
         },
         components: {

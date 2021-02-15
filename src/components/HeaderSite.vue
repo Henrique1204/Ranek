@@ -5,14 +5,23 @@
                 <img src="@/assets/ranek.svg" alt="Ranek">
             </router-link>
 
-            <router-link to="/login" class="btn">Vender / Login</router-link>
+            <router-link v-if="isLogado" to="/usuario" class="btn">{{nome}}</router-link>
+            <router-link v-else to="/login" class="btn">Vender / Login</router-link>
       </nav>
   </header>
 </template>
 
 <script>
     export default {
-        name: 'HeaderSite'
+        name: 'HeaderSite',
+        computed: {
+            nome() {
+                return this.$store.state.usuario.nome.replace(/ .*/, '');
+            },
+            isLogado() {
+                return this.$store.state.login;
+            }
+        }
     }
 </script>
 
