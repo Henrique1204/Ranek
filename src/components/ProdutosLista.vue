@@ -1,28 +1,32 @@
 <template>
   <div class="ProdutosLista">
-    <div v-if="produtos && produtos.length > 0" class="container_lista">
-      <ul class="produtos">
-        <li v-for="(produto, index) in produtos" :key="`${produto.id}_${index}`" class="produto">
-          <router-link to="/">
-            <img 
-              v-if="produto.fotos && produto.fotos.length"
-              :src="produto.fotos[0]"
-              :alt="produto.fotos[0].titulo"
-            >
+    <transition mode="out-in">
+      <div v-if="produtos && produtos.length > 0" class="container_lista" key="produtos">
+        <ul class="produtos">
+          <li v-for="(produto, index) in produtos" :key="`${produto.id}_${index}`" class="produto">
+            <router-link to="/">
+              <img 
+                v-if="produto.fotos && produto.fotos.length"
+                :src="produto.fotos[0]"
+                :alt="produto.fotos[0].titulo"
+              >
 
-            <p class="preco">{{produto.preco}}</p>
-            <h2>{{produto.nome}}</h2>
-            <p>{{produto.descricao}}</p>
-          </router-link>
-        </li>
-      </ul>
+              <p class="preco">{{produto.preco}}</p>
+              <h2>{{produto.nome}}</h2>
+              <p>{{produto.descricao}}</p>
+            </router-link>
+          </li>
+        </ul>
 
-      <ProdutosPaginacao :totalProdutos="totalProdutos" :produtosPorPagina="produtosPorPagina" />
-    </div>
+        <ProdutosPaginacao :totalProdutos="totalProdutos" :produtosPorPagina="produtosPorPagina" />
+      </div>
 
-    <p v-else-if="produtos && produtos.length === 0" class="sem_resultado">
-      Busca sem resultados. Tente buscar outro termo.
-    </p>
+      <p v-else-if="produtos && produtos.length === 0" class="sem_resultado" key="sem_resultada">
+        Busca sem resultados. Tente buscar outro termo.
+      </p>
+
+      <PaginaCarregando v-else key="carregando" />
+    </transition>
   </div>
 </template>
 
@@ -53,6 +57,8 @@
     },
     methods: {
       getProdutos() {
+        this.produtos = null;
+
         api.get(this.url).then((res) => {
           this.totalProdutos = Number(res.headers['x-total-count']);
           this.produtos = res.data;
@@ -72,9 +78,13 @@
   .ProdutosLista {
     max-width: 1000px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .container_lista {
+    width: 100%;
     margin: 30px;
   }
 

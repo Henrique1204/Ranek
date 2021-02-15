@@ -13,7 +13,9 @@
         }),
         methods: {
             buscarProdutos() {
-                this.$router.push({ query: { q: this.busca } });
+                if (this.busca !== this.$route.query.q) {
+                    this.$router.push({ query: { q: this.busca } });
+                }
             }
         }
     };
