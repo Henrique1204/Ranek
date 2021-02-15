@@ -18,6 +18,9 @@
         <label for="bairro">Bairro</label>
         <input type="text" id="bairro" name="bairro" v-model="bairro">
 
+        <label for="numero">Numero</label>
+        <input type="text" id="numero" name="numero" v-model="numero">
+
         <label for="cidade">Cidade</label>
         <input type="text" id="cidade" name="cidade" v-model="cidade">
 
@@ -31,8 +34,17 @@
 </template>
 
 <script>
+    import { mapFields } from '@/helpers.js';
+
     export default {
-        name: 'UsuarioForm'
+        name: 'UsuarioForm',
+        computed: {
+            ...mapFields({
+                fields: ['nome', 'email', 'senha', 'cep', 'rua', 'numero', 'bairro', 'cidade', 'estado'],
+                base: 'usuario',
+                mutation: 'UPDATE_USUARIO'
+            })
+        }
     }
 </script>
 
