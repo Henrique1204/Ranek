@@ -32,7 +32,9 @@
         methods: {
             logar() {
                 this.$store.dispatch('getUsuario', this.login.email);
-                this.$router.push({ name: 'usuario' });
+                if (this.$store.state.login) {
+                    this.$router.push({ name: 'usuario' });
+                }
             }
         },
         components: {
