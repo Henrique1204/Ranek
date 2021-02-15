@@ -3,7 +3,9 @@
     <HeaderSite />
 
     <main id="main">
-      <router-view />
+      <transition mode="out-in">
+        <router-view />
+      </transition>
     </main>
 
     <FooterSite />
@@ -75,6 +77,11 @@
   .btn:hover {
     background-color: #65D;
     transform: scale(1.1);
+  }
+
+  label {
+    margin-bottom: 5px;
+    cursor: pointer;
   }
 
   input, textarea {

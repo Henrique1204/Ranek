@@ -1,25 +1,27 @@
 <template>
     <section>
-        <div v-if="produto" class="produto">
-            <ul class="fotos" v-if="produto.fotos">
-                <li
-                    v-for="({src, titulo}, index) in produto.fotos"
-                    :key="`${titulo}_${index}`"
-                >
-                    <img :src="src" :alt="titulo">
-                </li>
-            </ul>
+        <transition mode="out-in">
+            <div v-if="produto" class="produto">
+                <ul class="fotos" v-if="produto.fotos">
+                    <li
+                        v-for="({src, titulo}, index) in produto.fotos"
+                        :key="`${titulo}_${index}`"
+                    >
+                        <img :src="src" :alt="titulo">
+                    </li>
+                </ul>
 
-            <div class="info">
-                <h1>{{produto.nome}}</h1>
-                <p class="preco">{{produto.preco | numeroPreco}}</p>
-                <p class="descricao">{{produto.descricao}}</p>
-                <button class="btn" v-if="produto.vendido === 'false'">Comprar</button>
-                <button class="btn" disabled v-else>Produto Vendido</button>
+                <div class="info">
+                    <h1>{{produto.nome}}</h1>
+                    <p class="preco">{{produto.preco | numeroPreco}}</p>
+                    <p class="descricao">{{produto.descricao}}</p>
+                    <button class="btn" v-if="produto.vendido === 'false'">Comprar</button>
+                    <button class="btn" disabled v-else>Produto Vendido</button>
+                </div>
             </div>
-        </div>
 
-        <PaginaCarregando v-else />
+            <PaginaCarregando v-else />
+        </transition>
     </section>
 </template>
 
@@ -34,6 +36,7 @@
         props: ['id'],
         methods: {
             getProduto() {
+                this.produto = null;
                 api.get(`/produto/${this.id}`).then((res) => this.produto = res.data);
             }
         },

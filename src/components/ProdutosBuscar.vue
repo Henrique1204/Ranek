@@ -50,5 +50,6 @@
         right: 0px;
         overflow: hidden;
         cursor: pointer;
+        outline: none;
     }
 </style>
