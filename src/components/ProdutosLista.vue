@@ -1,28 +1,33 @@
 <template>
-  <div>
-    <ul v-if="produtos && produtos.length > 0">
-      <li v-for="produto in produtos" :key="produto.id">
-        <router-link to="/">
-          <img 
-            v-if="produto.fotos && produto.fotos.length"
-            :src="produto.fotos[0]"
-            :alt="produto.fotos[0].titulo"
-          >
+  <div class="ProdutosLista">
+    <div v-if="produtos && produtos.length > 0" class="container_lista">
+      <ul class="produtos">
+        <li v-for="(produto, index) in produtos" :key="`${produto.id}_${index}`" class="produto">
+          <router-link to="/">
+            <img 
+              v-if="produto.fotos && produto.fotos.length"
+              :src="produto.fotos[0]"
+              :alt="produto.fotos[0].titulo"
+            >
 
-          <p class="preco">{{produto.preco}}</p>
-          <h2>{{produto.nome}}</h2>
-          <p>{{produto.descricao}}</p>
-        </router-link>
-      </li>
-    </ul>
+            <p class="preco">{{produto.preco}}</p>
+            <h2>{{produto.nome}}</h2>
+            <p>{{produto.descricao}}</p>
+          </router-link>
+        </li>
+      </ul>
 
-      <p v-else-if="produtos && produtos.length === 0" class="sem_resultado">
-        Busca sem resultados. Tente buscar outro termo.
-      </p>
+      <ProdutosPaginacao :totalProdutos="totalProdutos" :produtosPorPagina="produtosPorPagina" />
+    </div>
+
+    <p v-else-if="produtos && produtos.length === 0" class="sem_resultado">
+      Busca sem resultados. Tente buscar outro termo.
+    </p>
   </div>
 </template>
 
 <script>
+  import ProdutosPaginacao from './ProdutosPaginacao.vue';
   import { api } from '@/services.js';
   import { serialize } from '@/helpers.js';
 
@@ -31,7 +36,8 @@
     data() {
       return {
         produtos: null,
-        produtosPorPagina: 9
+        produtosPorPagina: 9,
+        totalProdutos: null
       }
     },
     computed: {
@@ -47,8 +53,14 @@
     },
     methods: {
       getProdutos() {
-        api.get(this.url).then((res) => this.produtos = res.data);
+        api.get(this.url).then((res) => {
+          this.totalProdutos = Number(res.headers['x-total-count']);
+          this.produtos = res.data;
+        });
       }
+    },
+    components: {
+      ProdutosPaginacao
     },
     created() {
       this.getProdutos();
@@ -57,20 +69,22 @@
 </script>
 
 <style scoped>
-  div {
+  .ProdutosLista {
     max-width: 1000px;
     margin: 0 auto;
   }
 
-  ul {
-    width: 100%;
+  .container_lista {
     margin: 30px;
+  }
+
+  .produtos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
   }
 
-  li {
+  .produto {
     padding: 10px;
     border-radius: 4px;
     background-color: #FFF;
@@ -78,19 +92,19 @@
     transition: all 0.3s;
   }
 
-  li:hover {
+  .produto:hover {
     box-shadow: 0 6px 12px rgba(30, 60, 90, 0.2);
     transform: scale(1.1);
     position: relative;
     z-index: 1;
   }
 
-  li img {
+  .produto img {
     border-radius: 4px;
     margin-bottom: 20px;
   }
 
-  li h2 {
+  .produto h2 {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 10px;
