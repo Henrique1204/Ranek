@@ -4,28 +4,31 @@ import { api } from '@/services.js';
 
 Vue.use(Vuex);
 
+const initialState = {
+  login: false,
+  usuario: {
+    id: '',
+    nome: '',
+    email: '',
+    senha: '',
+    cep: '',
+    rua: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    estado: ''
+  }
+};
+
 export default new Vuex.Store({
   strict: true,
-  state: {
-    login: false,
-    usuario: {
-      id: '',
-      nome: '',
-      email: '',
-      senha: '',
-      cep: '',
-      rua: '',
-      numero: '',
-      bairro: '',
-      cidade: '',
-      estado: ''
-    }
-  },
+  state: { ...initialState },
   mutations: {
     UPDATE_LOGIN(state, payload) {
       state.login = payload;
     },
     UPDATE_USUARIO(state, payload) {
+      console.log(payload);
       state.usuario = { ...state.usuario, ...payload };
     }
   },
@@ -38,6 +41,10 @@ export default new Vuex.Store({
     },
     criarUsuario(context, payload) {
       return api.post('/usuario', { ...payload, id: payload.email });
+    },
+    deslogarUsuario(context) {
+      context.commit('UPDATE_USUARIO', initialState.usuario);
+      context.commit('UPDATE_LOGIN', false);
     }
   },
   modules: {

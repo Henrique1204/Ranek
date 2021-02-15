@@ -30,10 +30,12 @@
             }
         }),
         methods: {
-            logar() {
-                this.$store.dispatch('getUsuario', this.login.email);
-                if (this.$store.state.login) {
-                    this.$router.push({ name: 'usuario' });
+            async logar() {
+                if (this.login.email) {
+                    await this.$store.dispatch('getUsuario', this.login.email);
+                    if (this.$store.state.login) {
+                        this.$router.push({ name: 'usuario' });
+                    }
                 }
             }
         },
