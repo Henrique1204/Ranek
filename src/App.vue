@@ -75,4 +75,20 @@
     background-color: #65D;
     transform: scale(1.1);
   }
+
+  input, textarea {
+    border: 1px solid #FFF;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
+    transition: all 0.3s;
+  }
+
+  input:hover, textarea:hover,
+  input:focus, textarea:focus {
+    border-color: #87F;
+    box-shadow: 0 6px 12px rgba(30, 60, 90, 0.2);
+    outline: none;
+  }
 </style>
