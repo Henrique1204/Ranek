@@ -4,14 +4,14 @@
       <div v-if="produtos && produtos.length > 0" class="container_lista" key="produtos">
         <ul class="produtos">
           <li v-for="(produto, index) in produtos" :key="`${produto.id}_${index}`" class="produto">
-            <router-link to="/">
+            <router-link :to="{ name: 'produto', params: { id: produto.id } }">
               <img 
                 v-if="produto.fotos && produto.fotos.length"
                 :src="produto.fotos[0]"
                 :alt="produto.fotos[0].titulo"
               >
 
-              <p class="preco">{{produto.preco}}</p>
+              <p class="preco">{{produto.preco | numeroPreco}}</p>
               <h2>{{produto.nome}}</h2>
               <p>{{produto.descricao}}</p>
             </router-link>

@@ -69,6 +69,7 @@
     box-shadow: 0 4px 8px rgba(30, 60, 90, 0.2);
     display: block;
     transition: all 0.3s ease;
+    cursor: pointer;
   }
 
   .btn:hover {
