@@ -32,11 +32,10 @@ export default new Vuex.Store({
       state.usuario = { ...state.usuario, ...payload };
     },
     UPDATE_USUARIO_PRODUTOS(state, payload) {
-      if (state.usuario_produtos) {
-        state.usuario_produtos.unshift(payload);
-      } else {
-        state.usuario_produtos = payload;
-      }
+      state.usuario_produtos = payload;
+    },
+    ADD_USUARIO_PRODUTOS(state, payload) {
+      state.usuario_produtos.unshit(payload);
     }
   },
   actions: {

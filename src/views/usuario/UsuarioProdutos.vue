@@ -4,7 +4,7 @@
     <ProdutosAdicionar />
 
     <h2>Seus Produtos</h2>
-    <transition-group v-if="usuario_produtos.length > 0" name="lista" tag="ul">
+    <transition-group v-if="usuario_produtos && usuario_produtos.length > 0" mode="out-in" name="lista" tag="ul">
       <ProdutoItem 
         v-for="(produto, index) in usuario_produtos" 
         :key="`${produto.id}_${index}`"
@@ -46,6 +46,17 @@
 
 <style scoped>
   h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
     margin-bottom: 20px;
+  }
+
+  .lista-enter, .lista-leave-to {
+    opacity: 0;
+    transform: translate3d(20px, 0, 0);
+  }
+
+  .lista-enter-active, .lista-leave-active {
+    transition: all 0.3s;
   }
 </style>
