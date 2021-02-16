@@ -4,7 +4,6 @@
         <UsuarioForm>
             <button class="btn" @click.prevent="finalizarCompra">Finalizar Compra</button>
         </UsuarioForm>
-        <pre>{{produto}}</pre>
     </div>
 </template>
 
@@ -21,7 +20,7 @@
             compra() {
                 return {
                     comprador_id: this.usuario.email,
-                    vendedor_id: this.produto.id,
+                    vendedor_id: this.produto.usuario_id,
                     produto: this.produto,
                     endereco: {
                         cep: this.usuario.cep,

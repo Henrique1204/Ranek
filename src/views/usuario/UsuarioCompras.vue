@@ -1,8 +1,11 @@
 <template>
   <div>
-    <h2>Compras</h2>
+      <h2>Compras</h2>
+  
+      <p v-if="compras && compras.length === 0" class="msg">
+        Você ainda não realizou nenhuma compra no nosso site.
+      </p>
 
-    <transition mode="out-in">
       <ul v-if="compras">
         <li
           class="produtos-wrapper"
@@ -14,7 +17,8 @@
           </ProdutoItem>
         </li>
       </ul>
-    </transition>
+  
+      <PaginaCarregando v-else />
   </div>
 </template>
 
