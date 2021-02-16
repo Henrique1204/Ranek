@@ -2,7 +2,7 @@
   <div>
       <h2>Compras</h2>
   
-      <p v-if="compras && compras.length === 0" class="msg">
+      <p v-if="compras && compras.length === 0">
         Você ainda não realizou nenhuma compra no nosso site.
       </p>
 
