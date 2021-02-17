@@ -15,7 +15,7 @@
     methods: {
       atualizarUsuario() {
         const user = this.$store.state.usuario;
-        api.put(`/usuario/${user.id}`, user).then(() => {
+        api.put(`/usuario`, user).then(() => {
           this.$store.dispatch('getUsuario');
           this.$router.push({ name: 'usuario' });
         }).catch((e) => console.log(e));

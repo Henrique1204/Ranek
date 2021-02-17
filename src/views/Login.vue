@@ -31,11 +31,10 @@
         }),
         methods: {
             async logar() {
-                if (this.login.email) {
-                    await this.$store.dispatch('getUsuario', this.login.email);
-                    if (this.$store.state.login) {
-                        this.$router.push({ name: 'usuario' });
-                    }
+                await this.$store.dispatch('logarUsuario', this.login);
+                await this.$store.dispatch('getUsuario');
+                if (this.$store.state.login) {
+                    this.$router.push({ name: 'usuario' });
                 }
             }
         },

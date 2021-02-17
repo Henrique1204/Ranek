@@ -37,7 +37,7 @@
     },
     methods: {
       getCompras() {
-        api.get(`/transacao?comprador_id=${this.usuario.id}`)
+        api.get(`/transacao`)
         .then((res) => this.compras = res.data);
       }
     },
