@@ -36,7 +36,6 @@
         if (confirmar) {
           api.delete(`/produto/${id}`).then(() => this.getUsuarioProdutos())
           .catch((e) => console.log(e));
-
         }
       }
     },

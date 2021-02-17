@@ -59,6 +59,7 @@ export default new Vuex.Store({
     deslogarUsuario(context) {
       context.commit('UPDATE_USUARIO', initialState.usuario);
       context.commit('UPDATE_LOGIN', false);
+      window.localStorage.removeItem('token');
     },
     getUsuarioProdutos(context) {
       api.get(`/produto?usuario_id=${context.state.usuario.id}`)

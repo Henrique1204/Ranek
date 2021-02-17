@@ -22,7 +22,7 @@ export const api = {
     login: (body) => {
         return axios.post('http://ranekapi.teste/wp-json/jwt-auth/v1/token', body);
     },
-    validarToken: () => axios.post('http://ranekapi.teste/wp-json/jwt-auth/v1/validate')
+    validarToken: () => axiosInstance.post('http://ranekapi.teste/wp-json/jwt-auth/v1/token/validate')
 };
 
 export const getCep = (cep) => axios.get(`https://viacep.com.br/ws/${cep}/json`);

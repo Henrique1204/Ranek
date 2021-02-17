@@ -42,7 +42,8 @@
             async criarUsuario() {
                 try {
                     await this.$store.dispatch('criarUsuario', this.$store.state.usuario);
-                    await this.$store.dispatch('getUsuario', this.$store.state.usuario.email);
+                    await this.$store.dispatch('logarUsuario', this.$store.state.usuario);
+                    await this.$store.dispatch('getUsuario');
                     await this.criarTransacao();
                 } catch (erro) {
                     console.log(erro);

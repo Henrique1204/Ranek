@@ -15,12 +15,20 @@
 <script>
   import HeaderSite from '@/components/HeaderSite.vue';
   import FooterSite from '@/components/FooterSite.vue';
+  import { api } from '@/services.js';
 
   export default {
     name: 'App',
     components: {
       HeaderSite,
       FooterSite
+    },
+    created() {
+      if (window.localStorage.token) {
+        api.validarToken().then(() => this.$store.dispatch('getUsuario'))
+        .catch(() => window.localStorage.removeItem('token'));
+
+      }
     }
   };
 </script>
