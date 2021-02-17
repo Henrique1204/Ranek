@@ -79,6 +79,21 @@
         font-weight: bold;
     }
 
+    .fotos {
+        grid-row: 1 / 3;
+    }
+
+    .info {
+        position: sticky;
+        top: 20px;
+    }
+
+    .fotos img {
+        border-radius: 4px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 8px rgba(30, 60, 90, 0.2);
+    }
+
     .preco {
         margin-bottom: 40px;
         font-size: 1.5rem;
@@ -95,8 +110,8 @@
         margin-top: 60px;
     }
 
-    .btn[disabled]:hover {
-        background-color: #87F;
+    .btn[disabled], .btn[disabled]:hover {
+        background-color: #BBC;
         transform: initial;
         cursor: not-allowed;
     }

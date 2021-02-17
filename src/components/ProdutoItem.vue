@@ -2,7 +2,7 @@
     <li v-if="produto" class="produto">
         <router-link :to="{ name: 'produto', params: { id: produto.id } }" class="produto_img">
             <img v-if="produto.fotos" :src="produto.fotos[0].src" :alt="produto.fotos[0].titulo">
-            <p>Ver Produto</p>
+            <p v-else>Ver Produto</p>
         </router-link>
 
         <div class="infos">
@@ -32,7 +32,17 @@
     .produto_img {
         height: 100px;
         border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         overflow: hidden;
+    }
+
+    .produto_img p {
+        font-size: 1.125rem;
+        font-weight: bold;
+        text-align: center;
+        color: #87F;
     }
 
     .infos {
