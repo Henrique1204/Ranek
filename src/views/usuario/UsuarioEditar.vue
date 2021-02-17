@@ -1,6 +1,7 @@
 <template>
   <div>
     <UsuarioForm>
+      <NotificacaoErro :erros="erros" />
       <button class="btn" @click.prevent="atualizarUsuario">Atuaizar Usuário</button>
     </UsuarioForm>
   </div>
@@ -12,13 +13,17 @@
 
   export default {
     name: 'UsuarioEditar',
+    data: () => ({
+      erros: []
+    }),
     methods: {
       atualizarUsuario() {
+        this.erros = [];
         const user = this.$store.state.usuario;
         api.put(`/usuario`, user).then(() => {
           this.$store.dispatch('getUsuario');
           this.$router.push({ name: 'usuario' });
-        }).catch((e) => console.log(e));
+        }).catch((e) => this.erros.push(e.response.data.message));
       }
     },
     components: {

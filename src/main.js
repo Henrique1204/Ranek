@@ -3,10 +3,12 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import PaginaCarregando from './components/PaginaCarregando.vue';
+import NotificacaoErro from './components/NotificacaoErro.vue';
 
 Vue.config.productionTip = false;
 
 Vue.component('PaginaCarregando', PaginaCarregando);
+Vue.component('NotificacaoErro', NotificacaoErro);
 
 Vue.filter('numeroPreco', (valor) => {
   const config = {

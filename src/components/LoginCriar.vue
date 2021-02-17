@@ -4,9 +4,12 @@
 
     <transition mode="out-in">
       <button v-if="!isCriar" @click="isCriar = true" class="btn">Criar Conta</button>
-      <UsuarioForm v-else >
-        <button class="btn" @click.prevent="criarUsuario">Criar Usuário</button>
-      </UsuarioForm>
+      <div v-else>
+        <UsuarioForm >
+          <NotificacaoErro :erros="erros" />
+          <button class="btn" @click.prevent="criarUsuario">Criar Usuário</button>
+        </UsuarioForm>
+      </div>
     </transition>
   </div>
 </template>
@@ -17,7 +20,8 @@
   export default {
     name: 'LoginCriar',
     data: () => ({
-      isCriar: false
+      isCriar: false,
+      erros: []
     }),
     components: {
       UsuarioForm
@@ -29,8 +33,8 @@
           await this.$store.dispatch('logarUsuario', this.$store.state.usuario);
           await this.$store.dispatch('getUsuario');
           this.$router.push({ name: 'usuario' });
-        } catch (erro) {
-          console.log(erro);
+        } catch (e) {
+          this.erros.push(e.response.data.message);
         }
       }
     }

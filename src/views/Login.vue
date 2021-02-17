@@ -10,9 +10,12 @@
             <input type="password" name="senha" id="senha" v-model="login.senha">
 
             <button class="btn" @click.prevent="logar">Logar</button>
+            <NotificacaoErro :erros="erros" />
         </form>
 
-        <p class="perdeu"><a href="/" target="_blank">Perdeu a senha? Clique aqui.</a></p>
+        <p class="perdeu">
+            <a href="http://ranekapi.teste/wp-login.php?action=lostpassword" target="_blank">Perdeu a senha? Clique aqui.</a>
+        </p>
 
         <LoginCriar />
   </section>
@@ -27,15 +30,22 @@
             login: {
                 email: '',
                 senha: '',
-            }
+            },
+            erros: []
         }),
         methods: {
-            async logar() {
-                await this.$store.dispatch('logarUsuario', this.login);
-                await this.$store.dispatch('getUsuario');
-                if (this.$store.state.login) {
-                    this.$router.push({ name: 'usuario' });
-                }
+            logar() {
+                this.erros = [];
+
+                this.$store.dispatch('logarUsuario', this.login)
+                .then(() =>{
+                    this.$store.dispatch('getUsuario');
+                    if (this.$store.state.login) {
+                        this.$router.push({ name: 'usuario' });
+                    }
+                }).catch((e) => {
+                    this.erros.push(e.response.data.message);
+                });
             }
         },
         components: {
